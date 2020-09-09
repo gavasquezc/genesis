@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 use App\publications;
+use App\comments;
 use DB;
+use Mail;
+use Illuminate\Mail\Mailable;
 
-class publicacionesController extends Controller
-{
+class publicacionesController extends Controller{
+
     public function inicio(){
 
         $public = publications::where('pu_status', 1)->get();
@@ -97,11 +100,90 @@ public function updatePub(Request $request){
 
         }
 
-    return redirect()->back();    
+  //  return redirect()->back();    
+
+}
+}
+
+
+
+public function listarPublicacion(Request $request, $id){
+
+    $publication = DB::table('publications')
+            ->join('comments', 'publications.id_publications', '=', 'comments.co_id_publicacion')
+            ->where('id_publications', $id)
+            ->get();
+
+        return view('home' , compact('publication'));
+
 
 }
 
+
+
+public function listaInicio(){
+
+    $publicacion = publications::all();
+
+    $publicar = publications::orderByDesc('id_publications')->take(1)->get();
+
+  /*  $publicar = DB::table('publications')
+            ->join('comments', 'publications.id_publications', '=', 'comments.co_id_publicacion')
+            ->orderByDesc('id_publications')
+            ->take(1)
+            ->get();
+*/
+
+
+        return view('home' , compact('publicacion','publicar'));
+
 }
+
+public function saveComentario (Request $data){
+
+        $comentario = $data->comentario;
+        $id_pu = $data->id_pu;
+
+        $data = ['comentario' => $comentario];
+
+        $comment = new comments;
+        $comment->co_desc = $comentario;
+        $comment->co_status =1;
+        $comment->co_id_publicacion = $id_pu;
+
+        $comment->save();
+
+        $alerta = $comment->save();
+
+        if ($alerta == true) {
+
+            $fromEmail= 'gavasquezc@vive.gob.ve';
+            $fromName= 'Ichirin No Hana';
+
+            Mail::send('correo', $data, function($message) use ($fromName,$fromEmail){ 
+
+                $message->to($fromEmail)->subject('Email de contacto');
+
+            });
+
+                $mensaje= "se envio el mensaje" ;
+
+                return response()->json([
+                    "mensaje" => 'Mensaje enviado'
+                ]);
+
+
+
+        }
+
+
+
+
+}
+
+
+
+
 
 
 

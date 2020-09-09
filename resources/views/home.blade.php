@@ -9,152 +9,139 @@
 </head>
 <body>
 
-<div>
 
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-  </div>
-  <img class="card-img-bottom" src="..." alt="Card image cap">
-</div>
-
-<div class="card bg-light mb-3" style="max-width: 18rem;">
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h5 class="card-title">Light card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-
-
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Fluid jumbotron</h1>
-    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-  </div>
-</div>
-
-</div>
-			<section id="" class="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="sections">
-                                <div class="head_title">
-                                    <h3>Publicaciones</h3>
-                                    <div class="separator"></div>
-                                </div>
-
-                                <div class="card">
-    <img class="card-img-top" src="imagenes/uno.png" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-
-                                <div class="row">
-								  <div class="col-sm-6">
-								    <div class="card">
-								      <div class="card-body">
-								        <h5 class="card-title">Special title treatment</h5>
-								        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-								        <a href="#" class="btn btn-primary">Go somewhere</a>
-								      </div>
-								    </div>
-								  </div>
-								  <div class="col-sm-6">
-								    <div class="card">
-								      <div class="card-body">
-								        <h5 class="card-title">Special title treatment</h5>
-								        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-								        <a href="#" class="btn btn-primary">Go somewhere</a>
-								      </div>
-								    </div>
-								  </div>
-								</div>
-                                <div class="row">
-                                    <div class="">
-
-                                        <div class="col-sm-6">
-
-                                            <div class="">
-                                                <div class="">
-                                                    <img src="imagenes/uno.png" alt="" />
-                                                </div>
-                                                <div class="single_ft_s_item">
-                                                    <img src="assets/images/featureslid1.jpg" alt="" />
-                                                </div>
-                                                <div class="single_ft_s_item">
-                                                    <img src="assets/images/featureslid1.jpg" alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="single_features_text">
-                                                <h4>HAND WITH A WATCH</h4>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                                    when an unknown printer took a galley of type and scrambled </p>
-
-                                                <ul>
-                                                    <li><span>Client:</span> Dadit Lorm</li>
-                                                    <li><span>Deivered:</span> Sunday, 15 August, 2015</li>
-                                                    <li><span>Tags:</span> Hand, Watch, Black, Tree</li>
-                                                </ul>
-
-                                                <a href="" class="btn">LAUNCH NOW</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
-
-
-                            </div>
-                        </div>
+<section id="" class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="sections">
+                    <div class="head_title">
+                        <h3>Publicaciones</h3>
+                        <div class="separator"></div>
                     </div>
+
+                    <div class="row mb-3">
+
+                    <div class="col-sm-8">
+                    	<div class="card border-info">
+                    	@foreach($publicar as $publicar)
+						    <img class="card-img-top" src="imagenes/{{$publicar->pu_foto}}" alt="Card image cap">
+						    <div class="card-body">
+						      <h5 class="card-title">{{$publicar->pu_titulo}}</h5>
+						      <p class="card-text">{{$publicar->pu_desc}}</p>
+						    </div>
+
+						    
+
+						@endforeach    
+						</div>
+
+						<div class="container-fluid p-0">
+
+
+
+					    <section class="">
+					      	<div class="my-auto">
+					        	
+
+					        <div id="accordion" role="tablist" aria-multiselectable="true">
+
+					          <!-- Accordion Item 1 -->
+						        <div class="card">
+						            <div class="card-header" role="tab" id="accordionHeadingOne">
+						              <div class="mb-0 row">
+						                <div class="col-12 no-padding accordion-head">
+						                  <a data-toggle="collapse" data-parent="#accordion" href="#accordionBodyOne" aria-expanded="false" aria-controls="accordionBodyOne"
+						                    class="collapsed ">
+						                    <center><h4>Comentarios </h4></center>
+						                    
+						                    
+						                  </a>
+						                </div>
+						              </div>
+						            </div>
+
+					           		<div id="accordionBodyOne" class="collapse" role="tabpanel" aria-labelledby="accordionHeadingOne" aria-expanded="false" data-parent="accordion">
+						              <div class="card-block col-12">
+						                <ul class="list-group list-group-flush">
+										  <li class="list-group-item">Cras justo odio</li>
+										  <li class="list-group-item">Dapibus ac facilisis in</li>
+										  <li class="list-group-item">Morbi leo risus</li>
+										  <li class="list-group-item">Porta ac consectetur ac</li>
+										  <li class="list-group-item">Vestibulum at eros</li>
+										</ul>
+						              </div>
+						            </div>
+						        </div>
+
+						        <form method="POST" action="guardaComentario" accept-charset="UTF-8" class="form-horizontal" id="comentForm" files="true">
+
+						        <div class="form-group">
+						        <br>
+						        <input type="hidden" name="_token" id="token"  value="<?= csrf_token(); ?>"> 
+
+						        <input type="text" id="id_pu" value="{{$publicar->id_publications}}" name="id_publ" hidden="" >
+
+								    <textarea class="form-control col-11" id="comentario" rows="1" placeholder="Ingrese comentario"></textarea>
+
+								</form>
+
+								<button type="button" class="btn btn-outline-info" style="float: right; margin-top: -43px;" id="comSave"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+									</svg></button>
+
+								    
+								</div>
+								
+        					</div>
+
+					      	</div>
+					    </section>
+
+
+
+  </div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="list-group">
+						  	<a href="#" class="list-group-item list-group-item-action active">
+						    	Publicaciones
+						  	</a>
+						  	@foreach($publicacion as $publication)
+						  	<a href="#" class="list-group-item list-group-item-action" idPublication="{{$publication->id_publications}}">{{$publication->pu_titulo}}</a>
+						  	@endforeach
+						</div>
+					</div>
+
+					</div>
+                                
                 </div>
-            </section>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 
-            <div class="card-group">
-  <div class="card">
-    <img class="card-img-top" src="imagenes/dos.png" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="imagenes/3.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="imagenes/cuatro.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
 
 
+<style type="text/css">.row > div{
+  background: #f2f2f2;
+  padding: 30px;
+}</style>
+
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+
+    <!--Scripts-->
+  <script src="assets/js/jquery.js"></script>
+  <script src="assets/js/publicaciones.js"></script>

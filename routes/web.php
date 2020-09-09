@@ -18,9 +18,7 @@ Route::get('/', function () {
 });
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('home', 'publicacionesController@listaInicio');
 
 Route::get('publicaciones', 'publicacionesController@inicio');
 
@@ -31,3 +29,22 @@ Route::get('obtenerpublic/{id_pu}', 'publicacionesController@publicacionDatos');
 
 
 Route::post('editPublicacion', 'publicacionesController@updatePub');
+
+Route::post('guardaComentario', 'publicacionesController@saveComentario');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

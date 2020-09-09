@@ -151,3 +151,45 @@ $("#updatepublic").click(function(){
     });
   }
 });
+
+
+$("#comSave").click(function(event){
+
+	var comentario = $('#comentario').val();
+	var id_pu = $('#id_pu').val();
+	var token = $('#token').val();
+
+  	if(token == '' ){
+    alert('Lo siento existe un error con el token.');
+        $('#_token').focus();
+        return false;
+    }else{
+    	varurl = 'guardaComentario';
+    	data = {"comentario":comentario,"id_pu":id_pu}
+		$.ajax({
+			cache: false,
+			headers:    {'X-CSRF-TOKEN':token},
+			type:       'POST',
+			url : varurl,
+			datatype:'json',
+			data : data,
+
+			success: function(data){
+
+				$("#comentForm")[0].reset();
+
+				alert("Se envió comentario");
+
+			},
+
+		    error:function(msj) {
+
+		       alert("error");
+
+		    }
+
+		});
+
+    }
+
+});
