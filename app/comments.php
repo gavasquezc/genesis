@@ -9,5 +9,5 @@ class comments extends Model
     protected $table = 'comments';
 	public $timestamps = false;
     protected $primaryKey = 'id_comments';
-    protected $fillable = ['co_desc', 'co_status', 'co_id_publicacion'];
+    protected $fillable = ['co_desc', 'co_status', 'co_id_publicacion','co_id_user'];
 }

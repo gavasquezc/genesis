@@ -7,14 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
   	<link href="assets/css/bootstrap.css" rel="stylesheet">
-  	<meta name="csrf-token" content="{!! csrf_token() !!}">
+  	<meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-
-<script src="assets/js/jquery.min.js"></script> 
-
-    <script src="assets/js/bootstrap.min.js"></script>
-
-     <script src="assets/js/jquery.slim.min.js"></script>
 
 	<title>Web</title>
 </head>
@@ -26,3 +20,8 @@
 </body>
 
 </html>
+
+<script src="assets/js/jquery.min.js"></script> 
+
+<script src="assets/js/bootstrap.min.js"></script>
+

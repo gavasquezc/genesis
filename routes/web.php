@@ -12,13 +12,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
 
-Route::get('home', 'publicacionesController@listaInicio');
+Route::get('/', function () {
+    return view('inicio');
+});
+
+
+Route::get('login', 'AuthController@index');
+
+Route::post('logear', 'AuthController@postLogin'); 
+
+Route::get('registrar', 'AuthController@registro');
+
+Route::post('registroUsu', 'AuthController@RegistraUsuario'); 
+
+Route::get('logout', 'AuthController@logout');
 
 Route::get('publicaciones', 'publicacionesController@inicio');
 
@@ -32,8 +40,13 @@ Route::post('editPublicacion', 'publicacionesController@updatePub');
 
 Route::post('guardaComentario', 'publicacionesController@saveComentario');
 
+Route::get('publicaciones', 'AuthController@dashboard'); 
 
+Route::get('home', 'publicacionesController@inicio');
 
+Route::get('getPublicacion/{id_pub}', 'publicacionesController@pubDatos');
+
+Route::get('eliminarpublication/{idd}',  'publicacionesController@deleteP');
 
 
 

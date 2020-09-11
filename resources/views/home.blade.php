@@ -1,3 +1,4 @@
+@include('navBar')
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,42 +10,53 @@
 </head>
 <body>
 
-
 <section id="" class="">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="sections">
-                    <div class="head_title">
+        
+        <div class="col-sm-12">
+
+            <div class="head_title">
                         <h3>Publicaciones</h3>
                         <div class="separator"></div>
-                    </div>
+            </div>
 
-                    <div class="row mb-3">
+                <input type="text" id="idUS" value="{{ ucfirst(Auth()->user()->id ) }}" hidden="">
+            
+            <div class="row">
 
-                    <div class="col-sm-8">
-                    	<div class="card border-info">
-                    	@foreach($publicar as $publicar)
-						    <img class="card-img-top" src="imagenes/{{$publicar->pu_foto}}" alt="Card image cap">
-						    <div class="card-body">
-						      <h5 class="card-title">{{$publicar->pu_titulo}}</h5>
-						      <p class="card-text">{{$publicar->pu_desc}}</p>
-						    </div>
+            	<div class="col-sm-7" id="selecPub" style="display: none;"></div>
+                
+                    <div class="col-sm-7" id="ultimaPub">
 
-						    
+                    	<div class="" >
 
-						@endforeach    
-						</div>
-
-						<div class="container-fluid p-0">
+                    		<div class="card border-info" >
 
 
+	                    	@foreach($lastPublicacion as $publicar)
 
-					    <section class="">
-					      	<div class="my-auto">
-					        	
+	                    	<?php
 
-					        <div id="accordion" role="tablist" aria-multiselectable="true">
+	                    	$foto = $publicar->pu_foto;
+	                    	$titulo = $publicar->pu_titulo;
+	                    	$desc = $publicar->pu_desc;
+
+	                    	?>
+
+	                    	@endforeach 
+
+							    <img class="card-img-top" src="imagenes/{{$foto}}" alt="Card image cap">
+							    <div class="card-body">
+							      <h5 class="card-title">{{$titulo}}</h5>
+							      <p class="card-text">{{$desc}}</p>
+							    </div>  
+							</div>
+
+
+						<section class="">
+					      		<div class="my-auto">
+					      
+					        		<div id="accordion" role="tablist" aria-multiselectable="true">
 
 					          <!-- Accordion Item 1 -->
 						        <div class="card">
@@ -64,11 +76,23 @@
 					           		<div id="accordionBodyOne" class="collapse" role="tabpanel" aria-labelledby="accordionHeadingOne" aria-expanded="false" data-parent="accordion">
 						              <div class="card-block col-12">
 						                <ul class="list-group list-group-flush">
-										  <li class="list-group-item">Cras justo odio</li>
-										  <li class="list-group-item">Dapibus ac facilisis in</li>
-										  <li class="list-group-item">Morbi leo risus</li>
-										  <li class="list-group-item">Porta ac consectetur ac</li>
-										  <li class="list-group-item">Vestibulum at eros</li>
+						                <?php foreach ($lastPublicacion as $publicar){
+
+				                    	$coment = $publicar->co_desc;
+
+				                    	} 
+
+				                    	if ($coment == null) { ?>
+
+				                    		<li class="list-group-item">No hay comentario</li>
+				                    		
+				                    	<?php }else{
+				                    	foreach ($lastPublicacion as $publicar){ ?>
+
+										  <li class="list-group-item">{{$publicar->co_desc}}</li>
+
+										  <?php }
+										  } ?>   
 										</ul>
 						              </div>
 						            </div>
@@ -82,43 +106,40 @@
 
 						        <input type="text" id="id_pu" value="{{$publicar->id_publications}}" name="id_publ" hidden="" >
 
+						        
+
 								    <textarea class="form-control col-11" id="comentario" rows="1" placeholder="Ingrese comentario"></textarea>
 
 								</form>
 
-								<button type="button" class="btn btn-outline-info" style="float: right; margin-top: -43px;" id="comSave"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<button type="button" class="btn btn-outline-info" style="float: right; margin-top: -43px;" id="comSave" onclick="saveComent()"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 									  <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
 									</svg></button>
 
 								    
 								</div>
-								
-        					</div>
+        						</div>
+					    	</section>
 
-					      	</div>
-					    </section>
-
-
-
-  </div>
+						</div>
 					</div>
 
-					<div class="col-sm-4">
+					<div class="col-sm-5" >
 						<div class="list-group">
 						  	<a href="#" class="list-group-item list-group-item-action active">
 						    	Publicaciones
 						  	</a>
 						  	@foreach($publicacion as $publication)
-						  	<a href="#" class="list-group-item list-group-item-action" idPublication="{{$publication->id_publications}}">{{$publication->pu_titulo}}</a>
+						  	<a href="#" id="" class="list-group-item list-group-item-action verPublicacion" idPublication="{{$publication->id_publications}}">{{$publication->pu_titulo}}</a>
 						  	@endforeach
 						</div>
 					</div>
 
-					</div>
-                                
-                </div>
+               </div>
+
+
             </div>
-        </div>
+
     </div>
 </section>
 

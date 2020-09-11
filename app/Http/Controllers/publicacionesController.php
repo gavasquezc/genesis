@@ -5,19 +5,44 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
+use Validator,Redirect,Response;
+Use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\publications;
 use App\comments;
 use DB;
 use Mail;
 use Illuminate\Mail\Mailable;
 
+
+
 class publicacionesController extends Controller{
 
     public function inicio(){
+ 
+      if(Auth::check()){
+        $publicacion = publications::all();
 
-        $public = publications::where('pu_status', 1)->get();
+       // $publicar = publications::orderByDesc('id_publications')->take(1)->get();
 
-    	return view('publicaciones' , compact('public'));
+        $lastPublicacion = DB::table('publications')
+            ->leftJoin('comments', 'publications.id_publications', '=', 'comments.co_id_publicacion')
+            ->orderBy('id_publications', 'asc')
+            ->get();
+
+         /*   $lastPublicacion = DB::select(DB::raw("
+                 SELECT publications.id_publications, publications.pu_desc,comments.id_comments,comments.co_desc 
+                 from publications 
+                 left outer join comments on publications.id_publications = comments.id_comments "));
+*/
+
+
+        return view('home' , compact('publicacion','lastPublicacion'));
+
+      }
+       return Redirect::to("login")->withSuccess('No tienes acceso');
+    
     } 
 
 
@@ -27,6 +52,7 @@ public function publicacionSave (Request $request){
 
 	 	$titulo = $request->titulo;
         $descripcion = $request->descripcion;
+        $idUs = $request->idUs;
 
         if ($request->imgUpload1 !="") {
 
@@ -38,7 +64,7 @@ public function publicacionSave (Request $request){
         $publication = new publications;
         $publication->pu_desc = $descripcion;
         $publication->pu_status =1;
-        $publication->pu_id_user = 1;
+        $publication->pu_id_user = $idUs;
         $publication->pu_titulo = $titulo;
         $publication->pu_foto = $name;
 
@@ -143,50 +169,89 @@ public function saveComentario (Request $data){
 
         $comentario = $data->comentario;
         $id_pu = $data->id_pu;
+        $idUS = $data->idUS;
 
-        $data = ['comentario' => $comentario];
+        $comentarios = DB::table('comments')
+            ->where('co_id_user', $idUS)
+            ->where('co_id_publicacion',$id_pu)
+            ->get();
 
-        $comment = new comments;
-        $comment->co_desc = $comentario;
-        $comment->co_status =1;
-        $comment->co_id_publicacion = $id_pu;
+         $tc = count($comentarios);
 
-        $comment->save();
+            if ($tc == 0) {
 
-        $alerta = $comment->save();
+                $comment = new comments;
+                $comment->co_desc = $comentario;
+                $comment->co_status =1;
+                $comment->co_id_publicacion = $id_pu;
+                $comment->co_id_user = $idUS;
 
-        if ($alerta == true) {
+                $comment->save();
 
-            $fromEmail= 'gavasquezc@vive.gob.ve';
-            $fromName= 'Ichirin No Hana';
+                $alerta = $comment->save();
 
-            Mail::send('correo', $data, function($message) use ($fromName,$fromEmail){ 
-
-                $message->to($fromEmail)->subject('Email de contacto');
-
-            });
-
-                $mensaje= "se envio el mensaje" ;
-
-                return response()->json([
-                    "mensaje" => 'Mensaje enviado'
-                ]);
+                $data = ['comentario' => $comentario];
 
 
 
-        }
+             /*   if ($alerta == true) {
+
+                    $fromEmail= 'gavasquezc@vive.gob.ve';
+                    $fromName= 'Ichirin No Hana';
+
+                    Mail::send('correo', $data, function($message) use ($fromName,$fromEmail){ 
+
+                        $message->to($fromEmail)->subject('Email de contacto');
+
+                    });
+
+                        $mensaje= "se envio el mensaje" ;
+
+                        return response()->json([
+                            "mensaje" => 'Mensaje enviado'
+                        ]);
 
 
+
+                }*/
+
+            }else{
+                return $tc;
+            }
 
 
 }
 
 
 
+public function pubDatos (Request $request, $id_pub){
+
+    $publicacioness = DB::table('publications')
+            ->leftJoin('comments', 'publications.id_publications', '=', 'comments.co_id_publicacion')
+            ->where('id_publications', $id_pub)
+            ->get();
+
+     return response()->json($publicacioness);
+
+}
 
 
+public function deleteP (Request $request, $idd){
+
+    if($request->ajax()){
+
+            $publication = DB::table('publications')
+                            ->where('id_publications', $idd)
+                            ->update(['pu_status' => 2
+                            ]);
 
 
+            return response()->json($publication);
+
+        }
+
+
+}
 
 
 
